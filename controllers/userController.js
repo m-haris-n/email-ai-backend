@@ -2,6 +2,7 @@ const asyncHanlder = require("express-async-handler");
 const User = require("../models/userModel");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
+
 //@desc Register a user
 //@route POST /api/users/register
 //@access public
@@ -19,7 +20,7 @@ const createUser = asyncHanlder(async (req, res) => {
       throw new Error("Email already in use");
    }
 
-   //has pwd
+   //has password
    const hashedPassword = await bcrypt.hash(password, 10);
    console.log("hashed pw:", hashedPassword);
    const user = await User.create({
@@ -40,17 +41,17 @@ const createUser = asyncHanlder(async (req, res) => {
 //@route POST /api/users/login
 //@access public
 const loginUser = asyncHanlder(async (req, res) => {
-   const { email, pwd } = req.body;
-   if (!email || !pwd) {
+   const { email, password } = req.body;
+   if (!email || !password) {
       res.status(400);
       throw new Error("All fields are mandatory");
    }
 
    const user = await User.findOne({ email });
 
-   // compare pwd
+   // compare password
 
-   if (user && (await bcrypt.compare(pwd, user.password))) {
+   if (user && (await bcrypt.compare(password, user.password))) {
       const accessToken = jwt.sign(
          {
             user: {
