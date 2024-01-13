@@ -6,7 +6,7 @@ const Field = require("../models/fieldModel");
 //@access public
 
 const getAllFIelds = asyncHanlder(async (req, res) => {
-   const fields = await Field.find();
+   const fields = await Field.find().sort("-isRequired");
    console.log("working");
    res.status(200).json({ fields });
 });
@@ -17,7 +17,8 @@ const getAllFIelds = asyncHanlder(async (req, res) => {
 
 const createField = asyncHanlder(async (req, res) => {
    const { fieldName, isRequired } = req.body;
-   if (!fieldName || !isRequired) {
+   console.log(req.body);
+   if (!fieldName || isRequired == null) {
       res.status(400);
       throw new Error("ALL fields are needed");
    }
