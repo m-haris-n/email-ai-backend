@@ -16,8 +16,8 @@ const getAllFIelds = asyncHanlder(async (req, res) => {
 //@access private
 
 const createField = asyncHanlder(async (req, res) => {
-   const { fieldName } = req.body;
-   if (!fieldName) {
+   const { fieldName, isRequired } = req.body;
+   if (!fieldName || !isRequired) {
       res.status(400);
       throw new Error("ALL fields are needed");
    }
@@ -26,6 +26,7 @@ const createField = asyncHanlder(async (req, res) => {
    const field = await Field.create({
       fieldName: fieldName,
       fieldValue: fieldValue,
+      isRequired: isRequired,
    });
 
    res.status(200).json({ msg: "Field Created", field });

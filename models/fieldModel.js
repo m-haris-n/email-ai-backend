@@ -10,6 +10,10 @@ const fieldSchema = mongoose.Schema(
          type: String,
          required: [true, "Please add the contact name"],
       },
+      isRequired: {
+         type: Boolean,
+         required: [true, "Please add the contact name"],
+      },
    },
    { timestamps: true }
 );
