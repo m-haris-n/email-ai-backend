@@ -11,7 +11,6 @@ const validateToken = asyncHanlder(async (req, res, next) => {
             res.status(401);
             throw new Error("unauthed");
          }
-         console.log(decoded);
          req.user = decoded.user;
          next();
       });
@@ -19,6 +18,9 @@ const validateToken = asyncHanlder(async (req, res, next) => {
          res.status(401);
          throw new Error("unauthed or no token");
       }
+   } else {
+      res.status(401);
+      throw new Error("unauthed or no token");
    }
 });
 
