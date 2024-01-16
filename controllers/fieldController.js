@@ -44,12 +44,12 @@ const updateField = asyncHanlder(async (req, res) => {
       throw new Error("Field not found");
    }
 
-   const { fieldName } = req.body;
+   const { fieldName, isRequired } = req.body;
    const fieldValue = fieldName.replace(/\s/g, "").toLowerCase();
 
    const updatedField = await Field.findByIdAndUpdate(
       req.params.id,
-      { fieldName, fieldValue },
+      { fieldName, fieldValue, isRequired },
       {
          new: true,
       }
