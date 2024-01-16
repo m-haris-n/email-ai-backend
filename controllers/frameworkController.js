@@ -62,7 +62,7 @@ const deleteFramework = asyncHanlder(async (req, res) => {
       throw new Error("Framework not found");
    }
 
-   const deletedFw = await Framework.findOneAndDelete();
+   const deletedFw = await Framework.findByIdAndDelete(req.params.id);
    res.status(200).json(deletedFw);
 });
 
