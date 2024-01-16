@@ -6,9 +6,9 @@ const Framework = require("../models/frameworkModel");
 //@access public
 
 const getAllFrameworks = asyncHanlder(async (req, res) => {
-   const framworks = await Framework.find();
+   const frameworks = await Framework.find();
    console.log("working");
-   res.status(200).json({ framworks });
+   res.status(200).json({ frameworks });
 });
 
 //@desc Create field
