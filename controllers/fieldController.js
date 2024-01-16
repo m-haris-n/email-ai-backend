@@ -68,7 +68,7 @@ const deleteField = asyncHanlder(async (req, res) => {
       throw new Error("Field not found");
    }
 
-   const deletedfield = await Field.findOneAndDelete(req.params.id);
+   const deletedfield = await Field.findOneAndDelete({ _id: req.params.id });
    res.status(200).json(deletedfield);
 });
 
