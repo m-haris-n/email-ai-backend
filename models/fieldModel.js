@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
-
-const fieldSchema = mongoose.Schema(
+const Schema = mongoose.Schema;
+const fieldSchema = Schema(
    {
       fieldName: {
          type: String,
@@ -13,6 +13,11 @@ const fieldSchema = mongoose.Schema(
       isRequired: {
          type: Boolean,
          required: [true, "Please add the contact name"],
+      },
+      formId: {
+         type: Schema.Types.ObjectId,
+         ref: "Form",
+         required: [true, "Please refer to a valid form"],
       },
    },
    { timestamps: true }
