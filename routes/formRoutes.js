@@ -16,7 +16,7 @@ router.route("/me").get(validateToken, getAllFormsByUser);
 router
    .route("/:id")
    .get(getFormById)
-   .put(validateToken, updateForm)
+   .patch(validateToken, updateForm)
    .delete(validateToken, deleteForm);
 
 module.exports = router;
