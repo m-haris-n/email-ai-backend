@@ -73,18 +73,16 @@ const createFieldsByCsv = asyncHanlder(async (req, res) => {
       console.log(filedata);
       fs.unlinkSync(reqFile.path);
       let lines = filedata.split("\n");
-      lines.shift();
-      lines.pop();
-      console.log(lines);
-      const fields = [];
-      for (let line of lines) {
-         let strippedLine = line.replace("\r", "");
-         strippedLine = strippedLine.split(",");
-         console.log(strippedLine);
+      let fields = [];
+      const fieldNames = lines[0].split(",");
+      const isRequiredArray = lines[1].split(",");
+
+      for (let i = 0; i < fieldNames.length; i += 1) {
          let field = {
-            fieldName: strippedLine[0],
-            fieldValue: strippedLine[0].replace(/\s/g, "").toLowerCase(),
-            isRequired: strippedLine[1].toUpperCase() === "TRUE",
+            fieldName: fieldNames[i].replace("\r", ""),
+            fieldValue: fieldNames[i].replace(/\s/g, "").toLowerCase(),
+            isRequired:
+               isRequiredArray[i].replace("\r", "").toUpperCase() == "TRUE",
             formId: formId,
          };
          fields.push(field);
@@ -93,7 +91,7 @@ const createFieldsByCsv = asyncHanlder(async (req, res) => {
       console.log(fields);
 
       const createdFields = await Field.create(fields);
-      res.status(200).json({ msg: "Field Created", fields: createdFields });
+      res.status(200).json({ msg: "Field Created", createdFields });
    } catch (error) {
       console.log(error);
    }

@@ -7,7 +7,9 @@ const {
    deleteForm,
    getFormById,
    getAllFormsByUser,
+   testFormByCsv,
 } = require("../controllers/formController");
+const { upload_csv } = require("../multerInstance");
 
 const router = express.Router();
 
@@ -18,5 +20,12 @@ router
    .get(getFormById)
    .patch(validateToken, updateForm)
    .delete(validateToken, deleteForm);
+
+router.post(
+   "/:id/test",
+   validateToken,
+   upload_csv.single("file"),
+   testFormByCsv
+);
 
 module.exports = router;

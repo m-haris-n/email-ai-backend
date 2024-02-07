@@ -28,6 +28,7 @@ const formSchema = Schema(
          type: String,
          required: [true, "Please add prompt"],
       },
+      frameworks: [{ type: Schema.Types.ObjectId, ref: "Framework" }],
    },
    { timestamps: true }
 );
