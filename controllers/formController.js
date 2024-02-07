@@ -187,24 +187,26 @@ ${framework.framework}
 ${form.postPrompt2}
 `;
 
-   const response1 = await gpt.chat.completions.create({
-      messages: [
-         {
-            role: "user",
-            content: gptReq1,
-         },
-      ],
-      model: "gpt-3.5-turbo",
-   });
-   const response2 = await gpt.chat.completions.create({
-      messages: [
-         {
-            role: "user",
-            content: gptReq2,
-         },
-      ],
-      model: "gpt-3.5-turbo",
-   });
+   const [response1, response2] = await Promise.all([
+      gpt.chat.completions.create({
+         messages: [
+            {
+               role: "user",
+               content: gptReq1,
+            },
+         ],
+         model: "gpt-3.5-turbo",
+      }),
+      gpt.chat.completions.create({
+         messages: [
+            {
+               role: "user",
+               content: gptReq2,
+            },
+         ],
+         model: "gpt-3.5-turbo",
+      }),
+   ]);
 
    let resp1 = response1.choices[0].message.content;
    let resp2 = response2.choices[0].message.content;
