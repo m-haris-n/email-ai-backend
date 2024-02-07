@@ -187,6 +187,8 @@ ${framework.framework}
 ${form.postPrompt2}
 `;
 
+   console.log(gptReq1);
+   console.log(gptReq2);
    const [response1, response2] = await Promise.all([
       gpt.chat.completions.create({
          messages: [
